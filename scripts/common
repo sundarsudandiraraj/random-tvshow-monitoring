@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+export HELM_VERSION="v3.5.2"
+
+function red() {
+    text="${1:- }"
+    echo -e "\033[31m$text\033[0m"
+}
+
+function green() {
+    text="${1:- }"
+    echo -e "\033[32m$text\033[0m"
+}
+
+function yellow() {
+    text="${1:- }"
+    echo -e "\033[33m$text\033[0m"
+}
+
+function graceful_exit() {
+    red "${1:- }"
+    exit 1
+}
+
+function green() {
+    text="${1:- }"
+    echo -e "\033[32m$text\033[0m"
+}
+
+function blue() {
+    text="${1:- }"
+    echo -e "\033[36m$text\033[0m"
+}
+
+function command_exists() {
+    command -v "${1:-}" > /dev/null 2>&1
+}

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+source scripts/common
+
+green "Setting up Prometheus Helm Repo"
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+green "Applying prometheus rule and other configrations"
+kubectl apply -k prometheus
+
+
+green "Deploying Kube Prometheus Stack"
+helm upgrade \
+    --install \
+    --namespace prometheus \
+    --create-namespace \
+    prometheus \
+    prometheus-community/kube-prometheus-stack \
+    --version 24.0.1 \
+    -f prometheus/operator.yaml \
+    --wait
