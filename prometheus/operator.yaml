@@ -63,6 +63,22 @@ alertmanager:
 
 grafana:
   enabled: true
+  grafana.ini:
+    paths:
+      data: /var/lib/grafana/
+      logs: /var/log/grafana
+      plugins: /var/lib/grafana/plugins
+      provisioning: /etc/grafana/provisioning
+    analytics:
+      check_for_updates: true
+    log:
+      mode: console
+    grafana_net:
+      url: https://grafana.net
+    server:
+      domain: sundars-k3s-lb-2806760-0488df88e3ba3cd2.elb.us-east-1.amazonaws.com
+      root_url: "%(protocol)s://%(domain)s:%(http_port)s/grafana/"
+      serve_from_sub_path: true
 
 nodeExporter:
   serviceMonitor:
